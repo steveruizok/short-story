@@ -100,6 +100,7 @@ var theme = {
   black: "#000",
   labelColor: "#555",
   inputColor: "#777",
+  outerBorder: "1px solid #ccc",
   border: "1px solid #eee",
   rowPadding: "16px"
 };
@@ -126,17 +127,16 @@ var ShortStory = function (_React$Component) {
         {
           key: "Label_Box_" + knob.name,
           style: {
+            display: "flex",
+            justifyContent: "flex-end",
+            alignItems: "center",
             gridColumn: 1,
             padding: theme.rowPadding,
-            borderBottom: theme.border,
+            borderTop: theme.border,
             color: theme.labelColor
           }
         },
-        React.createElement(
-          "label",
-          { key: "Knob_Label_" + knob.name },
-          knob.label
-        )
+        knob.label
       ), React.createElement(
         "div",
         {
@@ -144,7 +144,7 @@ var ShortStory = function (_React$Component) {
           style: {
             gridColumn: 2,
             padding: theme.rowPadding,
-            borderBottom: theme.border,
+            borderTop: theme.border,
             color: theme.inputColor
           }
         },
@@ -299,7 +299,7 @@ var ShortStory = function (_React$Component) {
                 type: "radio",
                 checked: currentValue === o,
                 mr: 2,
-                name: key + "_SegmentOption_" + index,
+                id: key + i + "_SegmentOption_" + index,
                 onChange: function onChange(ev) {
                   _this.setState(defineProperty({}, knob.name, o));
                 },
@@ -451,8 +451,11 @@ var ShortStory = function (_React$Component) {
           key: "stsy_" + name + "_component",
           style: {
             display: "flex",
+            border: theme.outerBorder,
+            borderBottom: "none",
+            borderRadius: "4px 4px 0 0",
             backgroundColor: theme.background,
-            width: "100%",
+            width: "auto",
             justifyContent: "center"
           }
         },
@@ -507,9 +510,10 @@ var ShortStory = function (_React$Component) {
               fontFamily: "sans-serif",
               fontSize: ".9em",
               margin: theme.margin,
-              border: "1px solid #ccc",
-              borderRadius: "4px",
-              overflow: "hidden"
+              border: theme.outerBorder,
+              borderRadius: "0 0 4px 4px",
+              overflow: "hidden",
+              marginBottom: "40px"
             }
           },
           React.createElement(
@@ -518,7 +522,7 @@ var ShortStory = function (_React$Component) {
               key: "stsy_" + name + "_knobs_container",
               style: {
                 display: "grid",
-                gridTemplateColumns: "1fr 2fr"
+                gridTemplateColumns: "25% auto"
               }
             },
             Object.values(this.props.knobs).map(function (v) {

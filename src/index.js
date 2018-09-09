@@ -9,6 +9,7 @@ const theme = {
   black: "#000",
   labelColor: "#555",
   inputColor: "#777",
+  outerBorder: "1px solid #ccc",
   border: "1px solid #eee",
   rowPadding: "16px"
 };
@@ -51,20 +52,23 @@ class ShortStory extends React.Component {
       <div
         key={"Label_Box_" + knob.name}
         style={{
+          display: "flex",
+          justifyContent: "flex-end",
+          alignItems: "center",
           gridColumn: 1,
           padding: theme.rowPadding,
-          borderBottom: theme.border,
+          borderTop: theme.border,
           color: theme.labelColor
         }}
       >
-        <label key={"Knob_Label_" + knob.name}>{knob.label}</label>
+        {knob.label}
       </div>,
       <div
         key={"Knob_Input" + knob.name}
         style={{
           gridColumn: 2,
           padding: theme.rowPadding,
-          borderBottom: theme.border,
+          borderTop: theme.border,
           color: theme.inputColor
         }}
       >
@@ -212,7 +216,7 @@ class ShortStory extends React.Component {
                 type="radio"
                 checked={currentValue === o}
                 mr={2}
-                name={key + "_SegmentOption_" + index}
+                id={key + i + "_SegmentOption_" + index}
                 onChange={ev => {
                   this.setState({ [knob.name]: o });
                 }}
@@ -335,8 +339,11 @@ class ShortStory extends React.Component {
         key={`stsy_${name}_component`}
         style={{
           display: "flex",
+          border: theme.outerBorder,
+          borderBottom: "none",
+          borderRadius: "4px 4px 0 0",
           backgroundColor: theme.background,
-          width: "100%",
+          width: "auto",
           justifyContent: "center"
         }}
       >
@@ -379,16 +386,17 @@ class ShortStory extends React.Component {
             fontFamily: "sans-serif",
             fontSize: ".9em",
             margin: theme.margin,
-            border: `1px solid #ccc`,
-            borderRadius: "4px",
-            overflow: "hidden"
+            border: theme.outerBorder,
+            borderRadius: "0 0 4px 4px",
+            overflow: "hidden",
+            marginBottom: "40px"
           }}
         >
           <div
             key={`stsy_${name}_knobs_container`}
             style={{
               display: "grid",
-              gridTemplateColumns: "1fr 2fr"
+              gridTemplateColumns: "25% auto"
             }}
           >
             {Object.values(this.props.knobs).map(v => this.createKnob(v))}
