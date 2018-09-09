@@ -172,7 +172,6 @@ var ShortStory = function (_React$Component) {
         // TEXT
         case "text":
           return React.createElement(Input, {
-            className: "stsy-knob-input",
             key: key,
             onChange: handleChange,
             defaultValue: currentValue,
@@ -187,19 +186,20 @@ var ShortStory = function (_React$Component) {
         // TEXTAREA
         case "textarea":
           return React.createElement("textarea", {
-            className: "stsy-knob-textarea",
             key: key,
             onChange: handleChange,
             defaultValue: currentValue,
             style: {
               width: "calc(100% - 16px)",
-              border: "1px solid #aaa"
+              border: "1px solid #aaa",
+              fontFamily: "sans-serif",
+              fontSize: ".9em",
+              padding: "8px"
             }
           });
         // DATE
         case "date":
           return React.createElement(Input, {
-            className: "stsy-knob-date",
             key: key,
             type: "date",
             min: knob.min,
@@ -207,7 +207,6 @@ var ShortStory = function (_React$Component) {
             onChange: handleChange,
             value: currentValue,
             style: {
-              width: "calc(100% - 16px)",
               border: "1px solid #aaa",
               fontFamily: "sans-serif",
               fontSize: ".9em",
@@ -353,6 +352,22 @@ var ShortStory = function (_React$Component) {
               backgroundColor: "none"
             }
           })];
+        // TIME
+        case "time":
+          return [React.createElement(Input, {
+            key: key,
+            type: "time",
+            min: knob.min,
+            max: knob.max,
+            onChange: handleChange,
+            value: currentValue,
+            style: {
+              border: "1px solid #aaa",
+              fontFamily: "sans-serif",
+              fontSize: ".9em",
+              padding: "8px"
+            }
+          })];
         // TODO: IMAGE
         default:
           return React.createElement(
@@ -405,6 +420,11 @@ var ShortStory = function (_React$Component) {
       window.addEventListener("resize", throttle(this.updateWidth, 100));
     }
   }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate() {
+      this.updateWidth();
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this2 = this;
@@ -447,10 +467,37 @@ var ShortStory = function (_React$Component) {
             "div",
             {
               key: "stsy_" + name + "_measure",
-              style: { borderBottom: "1px solid #ccc" },
+              style: {
+                borderBottom: "1px solid #bbb",
+                backgroundColor: "#eee"
+              },
               ref: this.measure
             },
             this.props.children(this.state)
+          ),
+          " ",
+          React.createElement(
+            "div",
+            {
+              style: {
+                all: "initial"
+              }
+            },
+            React.createElement(
+              "div",
+              {
+                key: "stsy_" + name + "_width",
+                style: {
+                  fontFamily: "sans-serif",
+                  fontSize: ".8em",
+                  color: "#777",
+                  paddingTop: "8px",
+                  textAlign: "center"
+                }
+              },
+              this.state.width,
+              "px"
+            )
           )
         )
       ), React.createElement(
@@ -464,7 +511,7 @@ var ShortStory = function (_React$Component) {
               fontFamily: "sans-serif",
               fontSize: ".9em",
               margin: theme.margin,
-              border: "1px solid " + theme.gray,
+              border: "1px solid #ccc",
               borderRadius: "4px",
               overflow: "hidden"
             }
@@ -472,21 +519,7 @@ var ShortStory = function (_React$Component) {
           React.createElement(
             "div",
             {
-              key: "stsy_" + name + "_width",
-              style: {
-                fontSize: ".8em",
-                color: "#aaa",
-                paddingTop: "8px",
-                textAlign: "center"
-              }
-            },
-            this.state.width,
-            "px"
-          ),
-          React.createElement(
-            "div",
-            {
-              key: "stsy-knobs-container",
+              key: "stsy_" + name + "_knobs_container",
               style: {
                 display: "grid",
                 gridTemplateColumns: "1fr 2fr"

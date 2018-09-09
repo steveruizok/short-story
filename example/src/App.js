@@ -15,6 +15,13 @@ const testKnobs = {
     max: "1986-01-11",
     default: "1986-01-09"
   },
+  myTime: {
+    type: "time",
+    label: "Time",
+    min: "00:00",
+    max: "09:30",
+    default: "04:45"
+  },
   myNumber: {
     type: "number",
     label: "Age",
@@ -87,8 +94,8 @@ export default class App extends Component {
                   month: "long",
                   day: "numeric",
                   year: "numeric"
-                })}
-                .
+                })}{" "}
+                at {state.myTime}.
               </p>
               <p key="2" style={{ color: state.myEnum }}>
                 This is my favourite color.

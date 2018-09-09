@@ -91,7 +91,6 @@ class ShortStory extends React.Component {
       case "text":
         return (
           <Input
-            className="stsy-knob-input"
             key={key}
             onChange={handleChange}
             defaultValue={currentValue}
@@ -108,13 +107,15 @@ class ShortStory extends React.Component {
       case "textarea":
         return (
           <textarea
-            className="stsy-knob-textarea"
             key={key}
             onChange={handleChange}
             defaultValue={currentValue}
             style={{
               width: "calc(100% - 16px)",
-              border: "1px solid #aaa"
+              border: "1px solid #aaa",
+              fontFamily: "sans-serif",
+              fontSize: ".9em",
+              padding: "8px"
             }}
           />
         );
@@ -122,7 +123,6 @@ class ShortStory extends React.Component {
       case "date":
         return (
           <Input
-            className="stsy-knob-date"
             key={key}
             type="date"
             min={knob.min}
@@ -130,7 +130,6 @@ class ShortStory extends React.Component {
             onChange={handleChange}
             value={currentValue}
             style={{
-              width: "calc(100% - 16px)",
               border: "1px solid #aaa",
               fontFamily: "sans-serif",
               fontSize: ".9em",
@@ -266,6 +265,24 @@ class ShortStory extends React.Component {
             }}
           />
         ];
+      // TIME
+      case "time":
+        return [
+          <Input
+            key={key}
+            type="time"
+            min={knob.min}
+            max={knob.max}
+            onChange={handleChange}
+            value={currentValue}
+            style={{
+              border: "1px solid #aaa",
+              fontFamily: "sans-serif",
+              fontSize: ".9em",
+              padding: "8px"
+            }}
+          />
+        ];
       // TODO: IMAGE
       default:
         return <span>Nothing for that type.</span>;
@@ -275,6 +292,10 @@ class ShortStory extends React.Component {
   componentDidMount() {
     this.updateWidth();
     window.addEventListener("resize", throttle(this.updateWidth, 100));
+  }
+
+  componentDidUpdate() {
+    this.updateWidth();
   }
 
   updateWidth = ev => {
@@ -322,10 +343,32 @@ class ShortStory extends React.Component {
         <div key={`stsy_${name}_padding`} style={{ padding: "24px 0" }}>
           <div
             key={`stsy_${name}_measure`}
-            style={{ borderBottom: `1px solid #ccc` }}
+            style={{
+              borderBottom: `1px solid #bbb`,
+              backgroundColor: "#eee"
+            }}
             ref={this.measure}
           >
             {this.props.children(this.state)}
+          </div>{" "}
+          <div
+            style={{
+              all: "initial"
+            }}
+          >
+            <div
+              key={`stsy_${name}_width`}
+              style={{
+                fontFamily: "sans-serif",
+                fontSize: ".8em",
+                color: "#777",
+                paddingTop: "8px",
+                textAlign: "center"
+              }}
+            >
+              {this.state.width}
+              px
+            </div>
           </div>
         </div>
       </div>,
@@ -336,25 +379,13 @@ class ShortStory extends React.Component {
             fontFamily: "sans-serif",
             fontSize: ".9em",
             margin: theme.margin,
-            border: `1px solid ${theme.gray}`,
+            border: `1px solid #ccc`,
             borderRadius: "4px",
             overflow: "hidden"
           }}
         >
           <div
-            key={`stsy_${name}_width`}
-            style={{
-              fontSize: ".8em",
-              color: "#aaa",
-              paddingTop: "8px",
-              textAlign: "center"
-            }}
-          >
-            {this.state.width}
-            px
-          </div>
-          <div
-            key="stsy-knobs-container"
+            key={`stsy_${name}_knobs_container`}
             style={{
               display: "grid",
               gridTemplateColumns: "1fr 2fr"
