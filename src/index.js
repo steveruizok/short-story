@@ -1,6 +1,116 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { throttle } from "./utils";
+import styled, { css } from "react-emotion";
+
+const fonts = {
+  heading: "300 2em/2.2em Avenir",
+  label: "500 .9em/.9em Avenir",
+  code: "500 1em/1.2em Menlo",
+  body: "500 .9em/1.15em Avenir",
+  caption: "400 .8em/.8em Avenir"
+};
+
+const colors = {
+  border: "#e5e9f2",
+  text: "#514f4f",
+  outline: "#d3dce6",
+  fill: "#928f8f",
+  field: "#f5f7ff",
+  fieldBorder: "#e5e9f2",
+  background: "none"
+};
+
+// styled components
+
+const Heading = styled("h2")`
+  font: ${fonts.heading};
+  color: ${colors.text};
+`;
+
+const CSSCapsule = styled("div")`
+  all: initial;
+`;
+
+const ComponentContainer = styled("div")`
+  display: grid;
+  grid-gap: 1em;
+  flex-direction: column;
+  border: 1px solid ${colors.border};
+  border-bottom: none;
+  border-radius: 0.25em 0.25em 0 0;
+  background-color: ${colors.background};
+  width: auto;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25em;
+`;
+
+const MeasureLabel = styled("div")`
+  font: ${fonts.caption};
+  color: ${colors.label};
+  padding-top: 1em;
+  border-top: 1px solid ${colors.border};
+  text-align: center;
+`;
+
+const KnobsPanel = styled("div")`
+  display: grid;
+  font: ${fonts.label};
+  border: 1px solid ${colors.border};
+  border-top: none;
+  border-radius: 0 0 0.25em 0.25em;
+  overflow: hidden;
+  margin-bottom: 2em;
+`;
+
+const KnobContainer = styled("div")`
+  border-top: 1px solid ${colors.border};
+  grid-row: span 1;
+  padding: 1.75em 0 1.75em 0;
+`;
+
+const KnobLabelRow = styled("div")`
+  width: 320px;
+  margin: 0 auto 1em auto;
+  display: flex;
+  align-content: center;
+  justify-content: space-between;
+`;
+
+const KnobLabel = styled("span")`
+  letter-spacing: 0.18em;
+  font: ${fonts.label};
+  color: ${colors.text};
+  text-transform: uppercase;
+`;
+
+const KnobVariableName = styled("span")`
+  font: ${fonts.code};
+  color: ${colors.text};
+`;
+
+const KnobInput = styled("div")`
+  width: 100%;
+`;
+
+const ContainerStyle = css`
+	width: 100%;
+	letter-spacing: .08em;
+	box-sizing: border-box;
+  padding: 1em 1.25em;
+  font: ${fonts.body};x;
+  color: ${colors.body};
+  background-color: ${colors.field};
+  border: 1px solid ${colors.fieldBorder};
+  border-radius: 0.25em;
+`;
+
+const Input = props => (
+  <input key="Stsy-input" className={ContainerStyle} {...props} />
+);
+
+// prior art
 
 const theme = {
   white: "#fff",
@@ -48,33 +158,17 @@ class ShortStory extends React.Component {
 
     const input = this.createKnobInput(knob);
 
-    return [
-      <div
-        key={"Label_Box_" + knob.name}
-        style={{
-          display: "flex",
-          justifyContent: "flex-end",
-          alignItems: "center",
-          gridColumn: 1,
-          padding: theme.rowPadding,
-          borderTop: theme.border,
-          color: theme.labelColor
-        }}
-      >
-        {knob.label}
-      </div>,
-      <div
-        key={"Knob_Input" + knob.name}
-        style={{
-          gridColumn: 2,
-          padding: theme.rowPadding,
-          borderTop: theme.border,
-          color: theme.inputColor
-        }}
-      >
-        {input}
-      </div>
-    ];
+    return (
+      <KnobContainer>
+        <div style={{ width: "320px", margin: "0 auto 1em auto" }}>
+          <KnobLabelRow key={"Label_Box_" + knob.name}>
+            <KnobLabel>{knob.label}</KnobLabel>
+            <KnobVariableName>{knob.variableName}</KnobVariableName>
+          </KnobLabelRow>
+          <KnobInput>{input}</KnobInput>
+        </div>
+      </KnobContainer>
+    );
   };
 
   // Create the correct input for the knob type
@@ -98,13 +192,6 @@ class ShortStory extends React.Component {
             key={key}
             onChange={handleChange}
             defaultValue={currentValue}
-            style={{
-              width: "calc(100% - 16px)",
-              fontFamily: "sans-serif",
-              fontSize: ".9em",
-              padding: "8px",
-              border: "1px solid #aaa"
-            }}
           />
         );
       // TEXTAREA
@@ -114,13 +201,7 @@ class ShortStory extends React.Component {
             key={key}
             onChange={handleChange}
             defaultValue={currentValue}
-            style={{
-              width: "calc(100% - 16px)",
-              border: "1px solid #aaa",
-              fontFamily: "sans-serif",
-              fontSize: ".9em",
-              padding: "8px"
-            }}
+            className={ContainerStyle}
           />
         );
       // DATE
@@ -181,24 +262,53 @@ class ShortStory extends React.Component {
       // ENUMERATED VALUE
       case "enum":
         return (
-          <select
-            key={key}
-            type="select"
-            onChange={handleChange}
-            defaultValue={currentValue}
+          <div
+            className={ContainerStyle}
             style={{
-              width: "calc(100% - 16px)",
-              fontFamily: "sans-serif",
-              fontSize: ".9em",
-              padding: "8px"
+              position: "relative",
+              padding: "0",
+              height: "3em"
             }}
           >
-            {knob.options.map((o, index) => (
-              <option key={key + "_option_" + index} value={o}>
-                {knob.labels[index]}
-              </option>
-            ))}
-          </select>
+            <div
+              className={css`
+                padding: 1em 1.25em;
+              `}
+            >
+              {knob.labels[knob.options.indexOf(currentValue)]}
+            </div>
+            <div
+              className={css`
+                position: absolute;
+                top: calc(50% - 2px);
+                right: 16px;
+                width: 20px;
+                height: 12px;
+                clip-path: polygon(0px 0px, 8px 8px, 16px 0px);
+                background-color: ${colors.text};
+              `}
+            />
+            <select
+              key={key}
+              type="select"
+              onChange={handleChange}
+              defaultValue={currentValue}
+              className={css`
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 100%;
+                width: 100%;
+                opacity: 0;
+              `}
+            >
+              {knob.options.map((o, index) => (
+                <option key={key + "_option_" + index} value={o}>
+                  {knob.labels[index]}
+                </option>
+              ))}
+            </select>
+          </div>
         );
       // SEGMENTED ENUMERATED VALUE
       case "segment":
@@ -318,90 +428,26 @@ class ShortStory extends React.Component {
 
   render() {
     let name = this.props.name;
+
     return [
-      <div
-        key={`stsy_${name}_knobs_heading_container`}
-        style={{
-          all: "initial"
-        }}
-      >
-        <h2
-          style={{
-            fontFamily: "sans-serif",
-            fontSize: "1.68em"
-          }}
-          key={`stsy_${name}_heading`}
-        >
-          {name}
-        </h2>
-      </div>,
-      <div
-        key={`stsy_${name}_component`}
-        style={{
-          display: "flex",
-          border: theme.outerBorder,
-          borderBottom: "none",
-          borderRadius: "4px 4px 0 0",
-          backgroundColor: theme.background,
-          width: "auto",
-          justifyContent: "center"
-        }}
-      >
-        <div key={`stsy_${name}_padding`} style={{ padding: "24px 0" }}>
-          <div
-            key={`stsy_${name}_measure`}
-            style={{
-              borderBottom: `1px solid #bbb`,
-              backgroundColor: "#eee"
-            }}
-            ref={this.measure}
-          >
-            {this.props.children(this.state)}
-          </div>{" "}
-          <div
-            style={{
-              all: "initial"
-            }}
-          >
-            <div
-              key={`stsy_${name}_width`}
-              style={{
-                fontFamily: "sans-serif",
-                fontSize: ".8em",
-                color: "#777",
-                paddingTop: "8px",
-                textAlign: "center"
-              }}
-            >
+      <CSSCapsule key={`stsy_${name}_header`}>
+        <Heading>{name}</Heading>
+      </CSSCapsule>,
+      <div key={`stsy_${name}_component`}>
+        <ComponentContainer>
+          <div ref={this.measure}>{this.props.children(this.state)}</div>
+          <CSSCapsule>
+            <MeasureLabel>
               {this.state.width}
               px
-            </div>
-          </div>
-        </div>
-      </div>,
-      <div key={`stsy_${name}_knobs_container`} style={{ all: "initial" }}>
-        <div
-          key={`stsy_${name}_knobs_panel`}
-          style={{
-            fontFamily: "sans-serif",
-            fontSize: ".9em",
-            margin: theme.margin,
-            border: theme.outerBorder,
-            borderRadius: "0 0 4px 4px",
-            overflow: "hidden",
-            marginBottom: "40px"
-          }}
-        >
-          <div
-            key={`stsy_${name}_knobs_container`}
-            style={{
-              display: "grid",
-              gridTemplateColumns: "25% auto"
-            }}
-          >
+            </MeasureLabel>
+          </CSSCapsule>
+        </ComponentContainer>
+        <CSSCapsule>
+          <KnobsPanel>
             {Object.values(this.props.knobs).map(v => this.createKnob(v))}
-          </div>
-        </div>
+          </KnobsPanel>
+        </CSSCapsule>
       </div>
     ];
   }
@@ -413,5 +459,3 @@ ShortStory.defaultProps = {
 };
 
 export default ShortStory;
-
-const Input = props => <input key="Stsy-input" {...props} />;
