@@ -6,6 +6,7 @@ var React = require('react');
 var React__default = _interopDefault(React);
 var PropTypes = _interopDefault(require('prop-types'));
 
+<<<<<<< HEAD
 function styleInject(css, ref) {
   if ( ref === void 0 ) ref = {};
   var insertAt = ref.insertAt;
@@ -21,6 +22,19 @@ function styleInject(css, ref) {
       head.insertBefore(style, head.firstChild);
     } else {
       head.appendChild(style);
+=======
+var throttle = function throttle(func, limit) {
+  var inThrottle = void 0;
+  return function () {
+    var args = arguments;
+    var context = this;
+    if (!inThrottle) {
+      func.apply(context, args);
+      inThrottle = true;
+      setTimeout(function () {
+        return inThrottle = false;
+      }, limit);
+>>>>>>> parent of 195041b... short story
     }
   } else {
     head.appendChild(style);
@@ -86,6 +100,7 @@ var possibleConstructorReturn = function (self, call) {
 };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 var ExampleComponent = function (_Component) {
   inherits(ExampleComponent, _Component);
 
@@ -93,6 +108,8 @@ var ExampleComponent = function (_Component) {
     classCallCheck(this, ExampleComponent);
     return possibleConstructorReturn(this, (ExampleComponent.__proto__ || Object.getPrototypeOf(ExampleComponent)).apply(this, arguments));
 =======
+=======
+>>>>>>> parent of 195041b... short story
 var theme = {
   white: "#fff",
   background: "#f6f6f6",
@@ -410,6 +427,7 @@ var ShortStory = function (_React$Component) {
       var text = this.props.text;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
       return React__default.createElement(
         'div',
@@ -418,6 +436,8 @@ var ShortStory = function (_React$Component) {
         text
       );
 =======
+=======
+>>>>>>> parent of 195041b... short story
       var name = this.props.name;
       return [React.createElement(
         "div",
@@ -537,6 +557,10 @@ ExampleComponent.propTypes = {
 <<<<<<< HEAD
 module.exports = ExampleComponent;
 =======
+var Input = function Input(props) {
+  return React.createElement("input", _extends({ key: "Stsy-input" }, props));
+};
+
 var Input = function Input(props) {
   return React.createElement("input", _extends({ key: "Stsy-input" }, props));
 };

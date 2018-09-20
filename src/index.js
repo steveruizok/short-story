@@ -402,6 +402,9 @@ class ShortStory extends React.Component {
             {Object.values(this.props.knobs).map(v => this.createKnob(v))}
           </div>
         </div>
+<<<<<<< HEAD
+>>>>>>> parent of 195041b... short story
+=======
 >>>>>>> parent of 195041b... short story
       </div>
     )
@@ -418,4 +421,7 @@ ShortStory.defaultProps = {
 export default ShortStory;
 
 const Input = props => <input key="Stsy-input" {...props} />;
+<<<<<<< HEAD
+>>>>>>> parent of 195041b... short story
+=======
 >>>>>>> parent of 195041b... short story
