@@ -1,23 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
+import styled, { css } from 'react-emotion';
 
-<<<<<<< HEAD
-function styleInject(css, ref) {
-  if ( ref === void 0 ) ref = {};
-  var insertAt = ref.insertAt;
-
-  if (!css || typeof document === 'undefined') { return; }
-
-  var head = document.head || document.getElementsByTagName('head')[0];
-  var style = document.createElement('style');
-  style.type = 'text/css';
-
-  if (insertAt === 'top') {
-    if (head.firstChild) {
-      head.insertBefore(style, head.firstChild);
-    } else {
-      head.appendChild(style);
-=======
 var throttle = function throttle(func, limit) {
   var inThrottle = void 0;
   return function () {
@@ -29,22 +13,9 @@ var throttle = function throttle(func, limit) {
       setTimeout(function () {
         return inThrottle = false;
       }, limit);
->>>>>>> parent of 195041b... short story
     }
-  } else {
-    head.appendChild(style);
-  }
-
-  if (style.styleSheet) {
-    style.styleSheet.cssText = css;
-  } else {
-    style.appendChild(document.createTextNode(css));
-  }
-}
-
-var css = "/* add css styles here (optional) */\n\n.styles_test__32Qsm {\n  display: inline-block;\n  margin: 2em auto;\n  border: 2px solid #000;\n  font-size: 2em;\n}\n";
-var styles = { "test": "styles_test__32Qsm" };
-styleInject(css);
+  };
+};
 
 var classCallCheck = function (instance, Constructor) {
   if (!(instance instanceof Constructor)) {
@@ -70,6 +41,35 @@ var createClass = function () {
   };
 }();
 
+var defineProperty = function (obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+};
+
+var _extends = Object.assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];
+
+    for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }
+
+  return target;
+};
+
 var inherits = function (subClass, superClass) {
   if (typeof superClass !== "function" && superClass !== null) {
     throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
@@ -94,27 +94,72 @@ var possibleConstructorReturn = function (self, call) {
   return call && (typeof call === "object" || typeof call === "function") ? call : self;
 };
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-var ExampleComponent = function (_Component) {
-  inherits(ExampleComponent, _Component);
+var taggedTemplateLiteral = function (strings, raw) {
+  return Object.freeze(Object.defineProperties(strings, {
+    raw: {
+      value: Object.freeze(raw)
+    }
+  }));
+};
 
-  function ExampleComponent() {
-    classCallCheck(this, ExampleComponent);
-    return possibleConstructorReturn(this, (ExampleComponent.__proto__ || Object.getPrototypeOf(ExampleComponent)).apply(this, arguments));
-=======
-=======
->>>>>>> parent of 195041b... short story
-var theme = {
-  white: "#fff",
-  background: "#f6f6f6",
-  gray: "#eee",
-  black: "#000",
-  labelColor: "#555",
-  inputColor: "#777",
-  outerBorder: "1px solid #ccc",
-  border: "1px solid #eee",
-  rowPadding: "16px"
+var _templateObject = taggedTemplateLiteral(["\n  font: ", ";\n  color: ", ";\n"], ["\n  font: ", ";\n  color: ", ";\n"]),
+    _templateObject2 = taggedTemplateLiteral(["\n  all: initial;\n"], ["\n  all: initial;\n"]),
+    _templateObject3 = taggedTemplateLiteral(["\n  display: grid;\n  grid-gap: 1em;\n  flex-direction: column;\n  border: 1px solid ", ";\n  border-bottom: none;\n  border-radius: 0.25em 0.25em 0 0;\n  background-color: ", ";\n  width: auto;\n  align-items: center;\n  justify-content: center;\n  padding: 1.25em;\n"], ["\n  display: grid;\n  grid-gap: 1em;\n  flex-direction: column;\n  border: 1px solid ", ";\n  border-bottom: none;\n  border-radius: 0.25em 0.25em 0 0;\n  background-color: ", ";\n  width: auto;\n  align-items: center;\n  justify-content: center;\n  padding: 1.25em;\n"]),
+    _templateObject4 = taggedTemplateLiteral(["\n  font: ", ";\n  color: ", ";\n  padding-top: 1em;\n  border-top: 1px solid ", ";\n  text-align: center;\n"], ["\n  font: ", ";\n  color: ", ";\n  padding-top: 1em;\n  border-top: 1px solid ", ";\n  text-align: center;\n"]),
+    _templateObject5 = taggedTemplateLiteral(["\n  display: grid;\n  font: ", ";\n  border: 1px solid ", ";\n  border-top: none;\n  border-radius: 0 0 0.25em 0.25em;\n  overflow: hidden;\n  margin-bottom: 2em;\n"], ["\n  display: grid;\n  font: ", ";\n  border: 1px solid ", ";\n  border-top: none;\n  border-radius: 0 0 0.25em 0.25em;\n  overflow: hidden;\n  margin-bottom: 2em;\n"]),
+    _templateObject6 = taggedTemplateLiteral(["\n  border-top: 1px solid ", ";\n  grid-row: span 1;\n  padding: 1.75em 0 1.75em 0;\n"], ["\n  border-top: 1px solid ", ";\n  grid-row: span 1;\n  padding: 1.75em 0 1.75em 0;\n"]),
+    _templateObject7 = taggedTemplateLiteral(["\n  width: 320px;\n  margin: 0 auto 1em auto;\n  display: flex;\n  align-content: center;\n  justify-content: space-between;\n"], ["\n  width: 320px;\n  margin: 0 auto 1em auto;\n  display: flex;\n  align-content: center;\n  justify-content: space-between;\n"]),
+    _templateObject8 = taggedTemplateLiteral(["\n  letter-spacing: 0.18em;\n  font: ", ";\n  color: ", ";\n  text-transform: uppercase;\n"], ["\n  letter-spacing: 0.18em;\n  font: ", ";\n  color: ", ";\n  text-transform: uppercase;\n"]),
+    _templateObject9 = taggedTemplateLiteral(["\n  width: 100%;\n"], ["\n  width: 100%;\n"]),
+    _templateObject10 = taggedTemplateLiteral(["\n\twidth: 100%;\n\tletter-spacing: .08em;\n\tbox-sizing: border-box;\n  padding: 1em 1.25em;\n  font: ", ";x;\n  color: ", ";\n  background-color: ", ";\n  border: 1px solid ", ";\n  border-radius: 0.25em;\n"], ["\n\twidth: 100%;\n\tletter-spacing: .08em;\n\tbox-sizing: border-box;\n  padding: 1em 1.25em;\n  font: ", ";x;\n  color: ", ";\n  background-color: ", ";\n  border: 1px solid ", ";\n  border-radius: 0.25em;\n"]),
+    _templateObject11 = taggedTemplateLiteral(["\n                padding: 1em 1.25em;\n              "], ["\n                padding: 1em 1.25em;\n              "]),
+    _templateObject12 = taggedTemplateLiteral(["\n                position: absolute;\n                top: calc(50% - 2px);\n                right: 16px;\n                width: 20px;\n                height: 12px;\n                clip-path: polygon(0px 0px, 8px 8px, 16px 0px);\n                background-color: ", ";\n              "], ["\n                position: absolute;\n                top: calc(50% - 2px);\n                right: 16px;\n                width: 20px;\n                height: 12px;\n                clip-path: polygon(0px 0px, 8px 8px, 16px 0px);\n                background-color: ", ";\n              "]),
+    _templateObject13 = taggedTemplateLiteral(["\n                position: absolute;\n                top: 0;\n                left: 0;\n                height: 100%;\n                width: 100%;\n                opacity: 0;\n              "], ["\n                position: absolute;\n                top: 0;\n                left: 0;\n                height: 100%;\n                width: 100%;\n                opacity: 0;\n              "]);
+
+var fonts = {
+  heading: "300 2em/2.2em Avenir",
+  label: "500 .9em/.9em Avenir",
+  code: "500 1em/1.2em Menlo",
+  body: "500 .9em/1.15em Avenir",
+  caption: "400 .8em/.8em Avenir"
+};
+
+var colors = {
+  border: "#e5e9f2",
+  text: "#514f4f",
+  outline: "#d3dce6",
+  fill: "#928f8f",
+  field: "#f5f7ff",
+  fieldBorder: "#e5e9f2",
+  background: "none"
+};
+
+// styled components
+
+var Heading = styled("h2")(_templateObject, fonts.heading, colors.text);
+
+var CSSCapsule = styled("div")(_templateObject2);
+
+var ComponentContainer = styled("div")(_templateObject3, colors.border, colors.background);
+
+var MeasureLabel = styled("div")(_templateObject4, fonts.caption, colors.label, colors.border);
+
+var KnobsPanel = styled("div")(_templateObject5, fonts.label, colors.border);
+
+var KnobContainer = styled("div")(_templateObject6, colors.border);
+
+var KnobLabelRow = styled("div")(_templateObject7);
+
+var KnobLabel = styled("span")(_templateObject8, fonts.label, colors.text);
+
+var KnobVariableName = styled("span")(_templateObject, fonts.code, colors.text);
+
+var KnobInput = styled("div")(_templateObject9);
+
+var ContainerStyle = css(_templateObject10, fonts.body, colors.body, colors.field, colors.fieldBorder);
+
+var Input = function Input(props) {
+  return React.createElement("input", _extends({ key: "Stsy-input", className: ContainerStyle }, props));
 };
 
 var ShortStory = function (_React$Component) {
@@ -134,34 +179,33 @@ var ShortStory = function (_React$Component) {
 
       var input = _this.createKnobInput(knob);
 
-      return [React.createElement(
-        "div",
-        {
-          key: "Label_Box_" + knob.name,
-          style: {
-            display: "flex",
-            justifyContent: "flex-end",
-            alignItems: "center",
-            gridColumn: 1,
-            padding: theme.rowPadding,
-            borderTop: theme.border,
-            color: theme.labelColor
-          }
-        },
-        knob.label
-      ), React.createElement(
-        "div",
-        {
-          key: "Knob_Input" + knob.name,
-          style: {
-            gridColumn: 2,
-            padding: theme.rowPadding,
-            borderTop: theme.border,
-            color: theme.inputColor
-          }
-        },
-        input
-      )];
+      return React.createElement(
+        KnobContainer,
+        null,
+        React.createElement(
+          "div",
+          { style: { width: "320px", margin: "0 auto 1em auto" } },
+          React.createElement(
+            KnobLabelRow,
+            { key: "Label_Box_" + knob.name },
+            React.createElement(
+              KnobLabel,
+              null,
+              knob.label
+            ),
+            React.createElement(
+              KnobVariableName,
+              null,
+              knob.variableName
+            )
+          ),
+          React.createElement(
+            KnobInput,
+            null,
+            input
+          )
+        )
+      );
     };
 
     _this.createKnobInput = function (knob) {
@@ -182,14 +226,7 @@ var ShortStory = function (_React$Component) {
           return React.createElement(Input, {
             key: key,
             onChange: handleChange,
-            defaultValue: currentValue,
-            style: {
-              width: "calc(100% - 16px)",
-              fontFamily: "sans-serif",
-              fontSize: ".9em",
-              padding: "8px",
-              border: "1px solid #aaa"
-            }
+            defaultValue: currentValue
           });
         // TEXTAREA
         case "textarea":
@@ -197,13 +234,7 @@ var ShortStory = function (_React$Component) {
             key: key,
             onChange: handleChange,
             defaultValue: currentValue,
-            style: {
-              width: "calc(100% - 16px)",
-              border: "1px solid #aaa",
-              fontFamily: "sans-serif",
-              fontSize: ".9em",
-              padding: "8px"
-            }
+            className: ContainerStyle
           });
         // DATE
         case "date":
@@ -273,26 +304,42 @@ var ShortStory = function (_React$Component) {
         // ENUMERATED VALUE
         case "enum":
           return React.createElement(
-            "select",
+            "div",
             {
-              key: key,
-              type: "select",
-              onChange: handleChange,
-              defaultValue: currentValue,
+              className: ContainerStyle,
               style: {
-                width: "calc(100% - 16px)",
-                fontFamily: "sans-serif",
-                fontSize: ".9em",
-                padding: "8px"
+                position: "relative",
+                padding: "0",
+                height: "3em"
               }
             },
-            knob.options.map(function (o, index) {
-              return React.createElement(
-                "option",
-                { key: key + "_option_" + index, value: o },
-                knob.labels[index]
-              );
-            })
+            React.createElement(
+              "div",
+              {
+                className: css(_templateObject11)
+              },
+              knob.labels[knob.options.indexOf(currentValue)]
+            ),
+            React.createElement("div", {
+              className: css(_templateObject12, colors.text)
+            }),
+            React.createElement(
+              "select",
+              {
+                key: key,
+                type: "select",
+                onChange: handleChange,
+                defaultValue: currentValue,
+                className: css(_templateObject13)
+              },
+              knob.options.map(function (o, index) {
+                return React.createElement(
+                  "option",
+                  { key: key + "_option_" + index, value: o },
+                  knob.labels[index]
+                );
+              })
+            )
           );
         // SEGMENTED ENUMERATED VALUE
         case "segment":
@@ -413,153 +460,90 @@ var ShortStory = function (_React$Component) {
       _this.state = _extends({}, _this.state, defineProperty({}, key, knob.default));
     });
     return _this;
->>>>>>> parent of 195041b... short story
   }
 
-  createClass(ExampleComponent, [{
-    key: 'render',
+  // Create knobs
+
+
+  // Create the correct input for the knob type
+
+
+  createClass(ShortStory, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.updateWidth();
+      window.addEventListener("resize", throttle(this.updateWidth, 100));
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate() {
+      this.updateWidth();
+    }
+  }, {
+    key: "render",
     value: function render() {
-      var text = this.props.text;
+      var _this2 = this;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-      return React.createElement(
-        'div',
-        { className: styles.test },
-        'Example Component: ',
-        text
-      );
-=======
-=======
->>>>>>> parent of 195041b... short story
       var name = this.props.name;
+
       return [React.createElement(
-        "div",
-        {
-          key: "stsy_" + name + "_knobs_heading_container",
-          style: {
-            all: "initial"
-          }
-        },
+        CSSCapsule,
+        { key: "stsy_" + name + "_header" },
         React.createElement(
-          "h2",
-          {
-            style: {
-              fontFamily: "sans-serif",
-              fontSize: "1.68em"
-            },
-            key: "stsy_" + name + "_heading"
-          },
+          Heading,
+          null,
           name
         )
       ), React.createElement(
         "div",
-        {
-          key: "stsy_" + name + "_component",
-          style: {
-            display: "flex",
-            border: theme.outerBorder,
-            borderBottom: "none",
-            borderRadius: "4px 4px 0 0",
-            backgroundColor: theme.background,
-            width: "auto",
-            justifyContent: "center"
-          }
-        },
+        { key: "stsy_" + name + "_component" },
         React.createElement(
-          "div",
-          { key: "stsy_" + name + "_padding", style: { padding: "24px 0" } },
+          ComponentContainer,
+          null,
           React.createElement(
             "div",
-            {
-              key: "stsy_" + name + "_measure",
-              style: {
-                borderBottom: "1px solid #bbb",
-                backgroundColor: "#eee"
-              },
-              ref: this.measure
-            },
+            { ref: this.measure },
             this.props.children(this.state)
           ),
-          " ",
           React.createElement(
-            "div",
-            {
-              style: {
-                all: "initial"
-              }
-            },
+            CSSCapsule,
+            null,
             React.createElement(
-              "div",
-              {
-                key: "stsy_" + name + "_width",
-                style: {
-                  fontFamily: "sans-serif",
-                  fontSize: ".8em",
-                  color: "#777",
-                  paddingTop: "8px",
-                  textAlign: "center"
-                }
-              },
+              MeasureLabel,
+              null,
               this.state.width,
               "px"
             )
           )
-        )
-      ), React.createElement(
-        "div",
-        { key: "stsy_" + name + "_knobs_container", style: { all: "initial" } },
+        ),
         React.createElement(
-          "div",
-          {
-            key: "stsy_" + name + "_knobs_panel",
-            style: {
-              fontFamily: "sans-serif",
-              fontSize: ".9em",
-              margin: theme.margin,
-              border: theme.outerBorder,
-              borderRadius: "0 0 4px 4px",
-              overflow: "hidden",
-              marginBottom: "40px"
-            }
-          },
+          CSSCapsule,
+          null,
           React.createElement(
-            "div",
-            {
-              key: "stsy_" + name + "_knobs_container",
-              style: {
-                display: "grid",
-                gridTemplateColumns: "25% auto"
-              }
-            },
+            KnobsPanel,
+            null,
             Object.values(this.props.knobs).map(function (v) {
               return _this2.createKnob(v);
             })
           )
         )
       )];
->>>>>>> parent of 195041b... short story
     }
   }]);
-  return ExampleComponent;
-}(Component);
+  return ShortStory;
+}(React.Component);
 
-ExampleComponent.propTypes = {
-  text: PropTypes.string
+ShortStory.propTypes = {
+  knobs: PropTypes.object,
+  name: PropTypes.string,
+  children: PropTypes.func.isRequired
 };
 
-<<<<<<< HEAD
-export default ExampleComponent;
-=======
-var Input = function Input(props) {
-  return React.createElement("input", _extends({ key: "Stsy-input" }, props));
-};
 
-var Input = function Input(props) {
-  return React.createElement("input", _extends({ key: "Stsy-input" }, props));
+ShortStory.defaultProps = {
+  name: "My Element",
+  knobs: {}
 };
 
 export default ShortStory;
->>>>>>> parent of 195041b... short story
 //# sourceMappingURL=index.es.js.map
