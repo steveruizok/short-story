@@ -1,7 +1,7 @@
 {
   "name": "short-story",
-  "version": "1.0.9",
-  "description": "Small interactive component previews.",
+  "version": "1.0.0",
+  "description": "Embed component previews in your React project.",
   "author": "steveruizok",
   "license": "MIT",
   "repository": "steveruizok/short-story",
@@ -17,8 +17,8 @@
     "test:watch": "react-scripts test --env=jsdom",
     "build": "rollup -c",
     "start": "rollup -c -w",
-    "prepare": "npm run build",
-    "predeploy": "cd example && npm install && npm run build",
+    "prepare": "yarn run build",
+    "predeploy": "cd example && yarn install && yarn run build",
     "deploy": "gh-pages -d example/build"
   },
   "peerDependencies": {
@@ -52,8 +52,7 @@
     "rollup-plugin-node-resolve": "^3.3.0",
     "rollup-plugin-peer-deps-external": "^2.2.0",
     "rollup-plugin-postcss": "^1.6.2",
-    "rollup-plugin-url": "^1.4.0",
-    "emotion": "^9.2.9"
+    "rollup-plugin-url": "^1.4.0"
   },
   "files": [
     "dist"

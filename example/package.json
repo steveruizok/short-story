@@ -5,14 +5,11 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "babel-plugin-emotion": "^9.2.9",
-    "emotion": "^9.2.9",
     "prop-types": "^15.6.2",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
-    "react-emotion": "^9.2.9",
     "react-scripts": "^1.1.4",
-    "short-story": "file:.."
+    "short-story": "link:.."
   },
   "scripts": {
     "start": "react-scripts start",
