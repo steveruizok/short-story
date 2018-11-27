@@ -8,7 +8,7 @@ const fonts = {
   label: "500 .9em/.9em Avenir",
   code: "500 1em/1.2em Menlo",
   body: "500 .9em/1.15em Avenir",
-  caption: "400 .8em/.8em Avenir",
+  caption: "400 .8em/.8em Avenir"
 };
 
 const colors = {
@@ -18,7 +18,7 @@ const colors = {
   fill: "#928f8f",
   field: "#f5f7ff",
   fieldBorder: "#e5e9f2",
-  background: "none",
+  background: "none"
 };
 
 // styled components
@@ -82,7 +82,6 @@ const KnobLabel = styled("span")`
   letter-spacing: 0.18em;
   font: ${fonts.label};
   color: ${colors.text};
-  text-align: right;
   text-transform: uppercase;
 `;
 
@@ -122,14 +121,14 @@ const theme = {
   inputColor: "#777",
   outerBorder: "1px solid #ccc",
   border: "1px solid #eee",
-  rowPadding: "16px",
+  rowPadding: "16px"
 };
 
 class ShortStory extends React.Component {
   static propTypes = {
     knobs: PropTypes.object,
     name: PropTypes.string,
-    children: PropTypes.func.isRequired,
+    children: PropTypes.func.isRequired
   };
 
   constructor(props) {
@@ -139,7 +138,7 @@ class ShortStory extends React.Component {
 
     this.state = {
       width: 0,
-      activeTab: 0,
+      activeTab: 0
     };
 
     Object.keys(this.props.knobs).map(key => {
@@ -219,7 +218,7 @@ class ShortStory extends React.Component {
               border: "1px solid #aaa",
               fontFamily: "sans-serif",
               fontSize: ".9em",
-              padding: "8px",
+              padding: "8px"
             }}
           />
         );
@@ -230,7 +229,7 @@ class ShortStory extends React.Component {
             key={key + "_slider_currentValue"}
             style={{
               width: "calc(100% - 16px)",
-              textAlign: "center",
+              textAlign: "center"
             }}
           >
             <small key={key + "_slider_max"}>{currentValue}</small>
@@ -243,7 +242,7 @@ class ShortStory extends React.Component {
             onChange={handleChange}
             defaultValue={currentValue}
             style={{
-              width: "calc(100% - 16px)",
+              width: "calc(100% - 16px)"
             }}
           />,
           <div
@@ -253,12 +252,12 @@ class ShortStory extends React.Component {
               width: "calc(100% - 16px)",
               justifyContent: "space-between",
               fontFamily: "sans-serif",
-              fontSize: ".9em",
+              fontSize: ".9em"
             }}
           >
             <span key={key + "_slider_min"}>{knob.min}</span>
             <span key={key + "_slider_max"}>{knob.max}</span>
-          </div>,
+          </div>
         ];
       // ENUMERATED VALUE
       case "enum":
@@ -268,7 +267,7 @@ class ShortStory extends React.Component {
             style={{
               position: "relative",
               padding: "0",
-              height: "3em",
+              height: "3em"
             }}
           >
             <div
@@ -318,7 +317,7 @@ class ShortStory extends React.Component {
           <div
             key={key + i + "_segment"}
             style={{
-              width: "calc(100% - 16px)",
+              width: "calc(100% - 16px)"
             }}
           >
             {knob.options.map((o, index) => [
@@ -332,18 +331,18 @@ class ShortStory extends React.Component {
                   this.setState({ [knob.name]: o });
                 }}
                 style={{
-                  marginRight: "8px",
+                  marginRight: "8px"
                 }}
               />,
               <label
                 style={{
-                  marginRight: "16px",
+                  marginRight: "16px"
                 }}
                 key={key + i + "_SegmentOptionLabel_" + index}
                 htmlFor={key + i + "_SegmentOption_" + index}
               >
                 {knob.labels[index]}
-              </label>,
+              </label>
             ])}
           </div>
         );
@@ -376,9 +375,9 @@ class ShortStory extends React.Component {
               height: "32px",
               width: "56px",
               borderColor: "none",
-              backgroundColor: "none",
+              backgroundColor: "none"
             }}
-          />,
+          />
         ];
       // TIME
       case "time":
@@ -394,9 +393,9 @@ class ShortStory extends React.Component {
               border: "1px solid #aaa",
               fontFamily: "sans-serif",
               fontSize: ".9em",
-              padding: "8px",
+              padding: "8px"
             }}
-          />,
+          />
         ];
       // TODO: IMAGE
       default:
@@ -449,14 +448,14 @@ class ShortStory extends React.Component {
             {Object.values(this.props.knobs).map(v => this.createKnob(v))}
           </KnobsPanel>
         </CSSCapsule>
-      </div>,
+      </div>
     ];
   }
 }
 
 ShortStory.defaultProps = {
   name: "My Element",
-  knobs: {},
+  knobs: {}
 };
 
 export default ShortStory;
