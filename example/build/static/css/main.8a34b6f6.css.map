@@ -1,1 +1,0 @@
-{"version":3,"sources":["index.css"],"names":[],"mappings":"AAAA,KACE,SACA,UACA,mBACA,gBACA,WAAa","file":"static/css/main.8a34b6f6.css","sourcesContent":["body {\n  margin: 0;\n  padding: 0;\n  font-family: \"Impact\";\n  font-size: 1.2em;\n  color: \"red\";\n}\n\n\n\n// WEBPACK FOOTER //\n// ./src/index.css"],"sourceRoot":""}
