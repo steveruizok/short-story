@@ -1,15 +1,15 @@
 /* eslint no-unused-vars: "warn" */
 /* eslint react/prop-types: "warn" */
 /* eslint no-tabs: "off" */
+/** @jsx jsx */
 
 import React from 'react'
 import PropTypes from 'prop-types'
-import BaseInput from './components/BaseInput'
-import styled, { css } from 'react-emotion'
 
-import theme, { ContainerStyle } from './components/theme'
+import theme, { AnchorStyle, ContainerStyle } from './components/theme'
 import Knob from './components/Knob'
-import './index.css'
+import { jsx, css } from '@emotion/core'
+import styled from '@emotion/styled'
 
 class ShortStory extends React.Component {
   static propTypes = {
@@ -19,8 +19,9 @@ class ShortStory extends React.Component {
   }
 
   static defaultProps = {
-    name: 'My Element',
+    name: undefined,
     knobs: {},
+    children: undefined,
   }
 
   state = {
@@ -66,7 +67,7 @@ class ShortStory extends React.Component {
       // BOOLEAN
       case 'boolean':
         return (
-          <BaseInput
+          <input
             key={key}
             type="checkbox"
             onClick={() => {
@@ -84,11 +85,15 @@ class ShortStory extends React.Component {
       // TEXT
       case 'text':
         return (
-          <BaseInput
+          <input
             key={key}
             type="text"
             onChange={handleChange}
             defaultValue={currentValue}
+            className={css`
+              width: 100%;
+              height: 40px;
+            `}
           />
         )
       // TEXTAREA
@@ -99,73 +104,79 @@ class ShortStory extends React.Component {
             onChange={handleChange}
             value={currentValue}
             defaultValue={currentValue}
-            className={ContainerStyle}
           />
         )
       // NUMBER
       case 'number':
         return [
           <div
-            key={key + '_slider_currentValue'}
-            style={{
-              width: 'calc(100% - 16px)',
-              textAlign: 'center',
-            }}
-          >
-            <small key={key + '_slider_max'}>{currentValue}</small>
-          </div>,
-          <BaseInput
-            key={key}
-            type="range"
-            min={knob.min}
-            max={knob.max}
-            onChange={handleChange}
-            defaultValue={currentValue}
-            style={{
-              width: 'calc(100% - 16px)',
-            }}
-          />,
-          <div
             key={key + '_slider_values'}
             style={{
               display: 'flex',
-              width: 'calc(100% - 16px)',
+              marginTop: '1em',
+              alignItems: 'center',
               justifyContent: 'space-between',
               fontFamily: 'sans-serif',
               fontSize: '.9em',
             }}
           >
-            <span key={key + '_slider_min'}>{knob.min}</span>
-            <span key={key + '_slider_max'}>{knob.max}</span>
+            <span
+              style={{
+                marginRight: '16px',
+                letterSpacing: '.1em',
+                font: theme.fonts.code,
+              }}
+              key={key + '_slider_min'}
+            >
+              {knob.min}
+            </span>
+            <input
+              key={key}
+              type="range"
+              min={knob.min}
+              max={knob.max}
+              step={knob.step || 1}
+              onChange={handleChange}
+              defaultValue={currentValue}
+              style={{
+                width: '100%',
+                margin: 0,
+                padding: 0,
+              }}
+            />
+            <span
+              style={{
+                marginLeft: '16px',
+                letterSpacing: '.1em',
+                font: theme.fonts.code,
+              }}
+              key={key + '_slider_max'}
+            >
+              {knob.max}
+            </span>
           </div>,
         ]
       // ENUMERATED VALUE
       case 'enum':
         return (
           <div
-            className={ContainerStyle}
-            style={{
-              position: 'relative',
-              padding: '0',
-              height: '3em',
-            }}
+            css={css`
+              ${ContainerStyle}
+              position: relative;
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              height: '3em';
+            `}
           >
+            {knob.labels[knob.options.indexOf(currentValue)]}
             <div
-              className={css`
-                padding: 1em 1.25em;
-              `}
-            >
-              {knob.labels[knob.options.indexOf(currentValue)]}
-            </div>
-            <div
-              className={css`
-                position: absolute;
-                top: calc(50% - 2px);
-                right: 16px;
-                width: 20px;
-                height: 12px;
-                clip-path: polygon(0px 0px, 8px 8px, 16px 0px);
+              css={css`
+                width: 10px;
+                height: 5px;
+                clip-path: polygon(0px 0px, 5px 5px, 10px 0px);
                 background-color: ${colors.text};
+                opacity: 0.7;
               `}
             />
             <select
@@ -173,7 +184,7 @@ class ShortStory extends React.Component {
               type="select"
               onChange={handleChange}
               defaultValue={currentValue}
-              className={css`
+              css={css`
                 position: absolute;
                 top: 0;
                 left: 0;
@@ -196,34 +207,65 @@ class ShortStory extends React.Component {
         return (
           <div
             key={key + i + '_segment'}
-            style={{
-              width: 'calc(100% - 16px)',
-            }}
+            css={css`
+              display: flex;
+              justify-content: space-between;
+            `}
           >
-            {knob.options.map((o, index) => [
-              <BaseInput
-                key={key + i + '_SegmentOption_' + index}
-                type="radio"
-                checked={currentValue === o}
-                mr={2}
-                id={key + i + '_SegmentOption_' + index}
-                onChange={() => {
-                  this.setState({ ...this.state.knobValues, [key]: o })
-                }}
-                style={{
-                  marginRight: '8px',
-                }}
-              />,
-              <label
-                style={{
-                  marginRight: '16px',
-                }}
-                key={key + i + '_SegmentOptionLabel_' + index}
-                htmlFor={key + i + '_SegmentOption_' + index}
-              >
-                {knob.labels[index]}
-              </label>,
-            ])}
+            {knob.options.map((o, index) => {
+              return (
+                <div
+                  key={key + i + '_' + index + '_segment_option'}
+                  onClick={() =>
+                    this.setState({
+                      knobValues: {
+                        ...this.state.knobValues,
+                        [key]: o,
+                      },
+                    })
+                  }
+                  css={css`
+                    ${ContainerStyle}
+                    display: inline-block;
+                    border-radius: ${index === 0
+                      ? '22px 0 0 22px'
+                      : index === knob.options.length - 1
+                      ? '0 22px 22px 0'
+                      : '0'};
+                    background-color: ${currentValue === o
+                      ? colors.select
+                      : colors.field};
+                    color: ${currentValue === o ? colors.field : colors.text};
+                    ${index === 0
+                      ? 'padding-left: 24px'
+                      : index === knob.options.length - 1
+                      ? 'padding-right: 24px'
+                      : ''};
+                  `}
+                >
+                  <input
+                    key={key + i + '_SegmentOption_' + index}
+                    type="radio"
+                    value={o}
+                    name={key}
+                    checked={currentValue === o}
+                    id={key + i + '_SegmentOption_' + index}
+                    onChange={() => {}}
+                  />
+                  <label
+                    css={css`
+                      width: 100%;
+                      height: 100%;
+                      text-align: center;
+                    `}
+                    key={key + i + '_SegmentOptionLabel_' + index}
+                    htmlFor={key + i + '_SegmentOption_' + index}
+                  >
+                    {knob.labels[index]}
+                  </label>
+                </div>
+              )
+            })}
           </div>
         )
       // COLOR
@@ -318,10 +360,7 @@ class ShortStory extends React.Component {
       <div>
         <CSSCapsule key={`stsy_${name}_header`}>
           <Heading>
-            <a href={`/#${name}-story`}>
-              Hello
-              {name}
-            </a>
+            <a href={`/#${name}-story`}>{name}</a>
           </Heading>
           <div id={`${name}-story`} className={AnchorStyle} />
         </CSSCapsule>
@@ -341,7 +380,12 @@ class ShortStory extends React.Component {
                 const knob = knobs[key]
                 const value = knobValues[key]
                 return (
-                  <Knob key={`stsy_knob_${key}`} knob={knob} value={value}>
+                  <Knob
+                    key={`stsy_knob_${key}`}
+                    keyName={key}
+                    knob={knob}
+                    value={value}
+                  >
                     {this.createKnobInput(key, knob, value)}
                   </Knob>
                 )
@@ -356,21 +400,15 @@ class ShortStory extends React.Component {
 
 const { colors, fonts } = theme
 
-const AnchorStyle = css`
-  position: relative;
-  top: -200px;
-  visible: false;
-`
-
-const CSSCapsule = styled('div')`
+const CSSCapsule = styled.div`
   all: initial;
 `
-const Heading = styled('h2')`
+const Heading = styled.h2`
   font: ${fonts.heading};
   color: ${colors.text};
 `
 
-const ComponentContainer = styled('div')`
+const ComponentContainer = styled.div`
   display: grid;
   grid-gap: 1em;
   flex-direction: column;
@@ -384,7 +422,7 @@ const ComponentContainer = styled('div')`
   padding: 1.25em;
 `
 
-const MeasureLabel = styled('div')`
+const MeasureLabel = styled.div`
   font: ${fonts.caption};
   color: ${colors.label};
   padding-top: 1em;
@@ -392,13 +430,16 @@ const MeasureLabel = styled('div')`
   text-align: center;
 `
 
-const KnobsPanel = styled('div')`
+const KnobsPanel = styled.div`
   display: grid;
   font: ${fonts.label};
+  grid-gap: 1em;
   border: 1px solid ${colors.border};
   border-top: none;
   border-radius: 0 0 0.25em 0.25em;
   overflow: hidden;
+  border-top: 1px solid ${colors.border};
+  padding: 2em 0;
   margin-bottom: 2em;
 `
 
@@ -414,5 +455,7 @@ export const throttle = (func, limit) => {
     }
   }
 }
+
+const BaseInput = styled.input``
 
 export default ShortStory

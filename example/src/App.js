@@ -4,18 +4,17 @@ import ShortStory from 'short-story'
 class App extends Component {
   render() {
     return (
-      <div className="App">
+      <div className="App stsy">
         <ShortStory
           name="Boolean"
           knobs={{
+            text: { type: 'text', default: 'Click here!' },
             secondary: { type: 'boolean', label: 'Secondary', default: false },
           }}
         >
-          {state => {
+          {({ text, secondary }) => {
             return (
-              <button className={state.secondary ? 'secondary' : null}>
-                Click here!
-              </button>
+              <button className={secondary ? 'secondary' : null}>{text}</button>
             )
           }}
         </ShortStory>
@@ -23,9 +22,21 @@ class App extends Component {
           name="Text"
           knobs={{
             name: { label: 'Name', type: 'text', default: 'ShortStory' },
+            years: {
+              type: 'number',
+              min: 0,
+              max: 132,
+              step: 0.25,
+              default: 0.5,
+            },
           }}
         >
-          {state => <p>Hello world, my name is {state.name}!</p>}
+          {({ name, years }) => (
+            <p>
+              Hello world, my name is {name}! I'm{' '}
+              {parseFloat(years, 10).toFixed(2)} years old.
+            </p>
+          )}
         </ShortStory>
         <ShortStory
           name="Textarea"
@@ -33,7 +44,7 @@ class App extends Component {
             message: {
               name: 'myTextarea',
               type: 'textarea',
-              label: 'Message',
+              label: 'Diary Entry',
               default: 'Dear diary...',
             },
           }}
@@ -93,7 +104,7 @@ class App extends Component {
                   height: '300px',
                   backgroundColor: '#ccc',
                 }}
-                alt="photo"
+                alt={`A ${state.animal}.`}
                 src={`https://source.unsplash.com/800x600/?${state.animal}`}
               />
             )
