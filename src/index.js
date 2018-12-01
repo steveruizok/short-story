@@ -3,25 +3,27 @@
 /* eslint no-tabs: "off" */
 /** @jsx jsx */
 
+// Short Story
+// @steveruizok
+
+// TODO:
+// Make code preview optional (default to true?)
+// Clean up components (punch out knobs into own components)
+// Remove styling dependencies
+// Combine textarea and text types to "string" and add textarea option
+// Convert to TypeScript to give better editor hints
+
 import React from 'react'
 import PropTypes from 'prop-types'
+import { jsx, css } from '@emotion/core'
+import styled from '@emotion/styled'
 
 import theme, { AnchorStyle, ContainerStyle } from './components/theme'
 import Knob from './components/Knob'
-import { jsx, css } from '@emotion/core'
-import styled from '@emotion/styled'
 
 import reactElementToJSXString from 'react-element-to-jsx-string'
 import Highlight, { defaultProps } from 'prism-react-renderer'
 import duotoneLight from 'prism-react-renderer/themes/duotoneLight'
-
-// import Prism from 'prismjs'
-// import './prism.css'
-// import Lowlight from 'react-lowlight'
-// import js from 'highlight.js/lib/languages/javascript'
-// import xml from 'highlight.js/lib/languages/xml'
-// Lowlight.registerLanguage('xml', xml)
-// Lowlight.registerLanguage('js', js)
 
 class ShortStory extends React.Component {
   static propTypes = {
