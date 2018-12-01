@@ -40,6 +40,7 @@ class ShortStory extends React.Component {
   }
 
   state = {
+    loaded: false,
     knobValues: {},
     width: 0,
   }
@@ -61,6 +62,7 @@ class ShortStory extends React.Component {
     })
 
     this.setState({
+      loaded: true,
       knobValues: initialValues,
     })
   }
@@ -369,7 +371,7 @@ class ShortStory extends React.Component {
 
   render() {
     const { name, children, knobs } = this.props
-    const { knobValues } = this.state
+    const { knobValues, loaded } = this.state
     const child = children(this.state.knobValues)
     const codeString = reactElementToJSXString(child)
 
@@ -423,7 +425,7 @@ class ShortStory extends React.Component {
                 const knob = knobs[key]
                 const currentValue = knobValues[key]
                 return (
-                  currentValue && (
+                  loaded && (
                     <Knob
                       key={`stsy_knob_${key}`}
                       keyName={key}

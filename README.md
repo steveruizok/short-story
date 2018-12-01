@@ -16,9 +16,7 @@ npm install --save short-story
 
 ShortStory is a render props component. It accepts a prop `knobs`, an object describing different knobs, creates an interface for setting the values of those knobs, and passes those values into its child function.
 
-See [example](https://codesandbox.io/s/3rwj7kqm15) for a different knob types.
-
-The component calls its child function with an object argument that maps to the `knobs` prop it received, where each key evaluates to the current value of the knob as set through the interface it generates. (Easier seen than said.) In the example below, the component will create a text field for the `knobs.text` knob, and pass the value of that text field into the child function as `state.text`.
+See [example](https://codesandbox.io/s/3rwj7kqm15) for a collection of different knob types.
 
 ```jsx
 import React from "react"
@@ -48,6 +46,8 @@ const rootElement = document.getElementById("root");
 ReactDOM.render(<App />, rootElement);
 
 ```
+
+The component calls its child function with an object argument that maps to the `knobs` prop it received, where each key evaluates to the current value of the knob as set through the interface it generates. (Easier seen than said.) In the example above, the component creates a text field for the `knobs.text` knob, and passes the value of that text field into the child function as `state.text`.
 
 See [https://codesandbox.io/s/3rwj7kqm15](https://codesandbox.io/s/3rwj7kqm15) for a full demo.
 
