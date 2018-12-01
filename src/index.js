@@ -7,6 +7,7 @@
 // @steveruizok
 
 // TODO:
+// Write docs in Readme
 // Make code preview optional (default to true?)
 // Clean up components (punch out knobs into own components)
 // Remove styling dependencies
@@ -70,6 +71,7 @@ class ShortStory extends React.Component {
     let i = 0
 
     const handleChange = throttle(ev => {
+      ev.preventDefault()
       const { value } = ev.target
       const { knobValues } = this.state
       this.setState({
@@ -116,7 +118,6 @@ class ShortStory extends React.Component {
           <textarea
             key={key}
             onChange={handleChange}
-            value={currentValue}
             defaultValue={currentValue}
           />
         )
@@ -420,16 +421,18 @@ class ShortStory extends React.Component {
               </CodePanel>
               {Object.keys(knobs).map(key => {
                 const knob = knobs[key]
-                const value = knobValues[key]
+                const currentValue = knobValues[key]
                 return (
-                  <Knob
-                    key={`stsy_knob_${key}`}
-                    keyName={key}
-                    knob={knob}
-                    value={value}
-                  >
-                    {this.createKnobInput(key, knob, value)}
-                  </Knob>
+                  currentValue && (
+                    <Knob
+                      key={`stsy_knob_${key}`}
+                      keyName={key}
+                      knob={knob}
+                      value={currentValue}
+                    >
+                      {this.createKnobInput(key, knob, currentValue)}
+                    </Knob>
+                  )
                 )
               })}
             </KnobsPanel>

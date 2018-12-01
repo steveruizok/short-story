@@ -1,7 +1,7 @@
 {
   "name": "short-story",
-  "version": "1.5.5",
-  "description": "Embed component previews in your React project.",
+  "version": "1.5.6",
+  "description": "Beautiful component previews for design, docs and demos.",
   "author": "steveruizok",
   "license": "MIT",
   "repository": "steveruizok/short-story",
