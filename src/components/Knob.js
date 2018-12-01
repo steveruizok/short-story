@@ -12,6 +12,7 @@ const { colors, fonts } = theme
 
 const KnobContainer = styled('div')`
   grid-row: span 1;
+  font: ${fonts.label};
 `
 
 const KnobLabel = styled('span')`

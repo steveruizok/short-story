@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
 import ShortStory from 'short-story'
 
+const SimpleButton = ({ text, secondary }) => {
+  return <button className={secondary ? 'secondary' : null}>{text}</button>
+}
+
 class App extends Component {
   render() {
     return (
@@ -12,10 +16,8 @@ class App extends Component {
             secondary: { type: 'boolean', label: 'Secondary', default: false },
           }}
         >
-          {({ text, secondary }) => {
-            return (
-              <button className={secondary ? 'secondary' : null}>{text}</button>
-            )
+          {props => {
+            return <SimpleButton {...props} />
           }}
         </ShortStory>
         <ShortStory

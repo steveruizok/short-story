@@ -11,6 +11,18 @@ import Knob from './components/Knob'
 import { jsx, css } from '@emotion/core'
 import styled from '@emotion/styled'
 
+import reactElementToJSXString from 'react-element-to-jsx-string'
+import Highlight, { defaultProps } from 'prism-react-renderer'
+import duotoneLight from 'prism-react-renderer/themes/duotoneLight'
+
+// import Prism from 'prismjs'
+// import './prism.css'
+// import Lowlight from 'react-lowlight'
+// import js from 'highlight.js/lib/languages/javascript'
+// import xml from 'highlight.js/lib/languages/xml'
+// Lowlight.registerLanguage('xml', xml)
+// Lowlight.registerLanguage('js', js)
+
 class ShortStory extends React.Component {
   static propTypes = {
     knobs: PropTypes.object,
@@ -355,6 +367,8 @@ class ShortStory extends React.Component {
   render() {
     const { name, children, knobs } = this.props
     const { knobValues } = this.state
+    const child = children(this.state.knobValues)
+    const codeString = reactElementToJSXString(child)
 
     return (
       <div>
@@ -366,7 +380,7 @@ class ShortStory extends React.Component {
         </CSSCapsule>
         <div key={`stsy_${name}_component`}>
           <ComponentContainer>
-            <div ref={this.measure}>{children(this.state.knobValues)}</div>
+            <div ref={this.measure}>{child}</div>
             <CSSCapsule>
               <MeasureLabel>
                 {this.state.width}
@@ -376,6 +390,32 @@ class ShortStory extends React.Component {
           </ComponentContainer>
           <CSSCapsule>
             <KnobsPanel>
+              <CodePanel>
+                <Highlight
+                  {...defaultProps}
+                  code={codeString}
+                  theme={duotoneLight}
+                  language="jsx"
+                >
+                  {({
+                    className,
+                    style,
+                    tokens,
+                    getLineProps,
+                    getTokenProps,
+                  }) => (
+                    <pre className={className} style={style}>
+                      {tokens.map((line, i) => (
+                        <div {...getLineProps({ line, key: i })}>
+                          {line.map((token, key) => (
+                            <span {...getTokenProps({ token, key })} />
+                          ))}
+                        </div>
+                      ))}
+                    </pre>
+                  )}
+                </Highlight>
+              </CodePanel>
               {Object.keys(knobs).map(key => {
                 const knob = knobs[key]
                 const value = knobValues[key]
@@ -432,15 +472,23 @@ const MeasureLabel = styled.div`
 
 const KnobsPanel = styled.div`
   display: grid;
-  font: ${fonts.label};
   grid-gap: 1em;
   border: 1px solid ${colors.border};
   border-top: none;
   border-radius: 0 0 0.25em 0.25em;
   overflow: hidden;
   border-top: 1px solid ${colors.border};
-  padding: 2em 0;
+  padding-bottom: 2em;
   margin-bottom: 2em;
+`
+
+const CodePanel = styled.div`
+  border-bottom: 1px solid ${colors.border};
+  font: ${fonts.code};
+  font-weight: 400;
+  font-size: 14px;
+  padding: 0 2em;
+  background-color: #faf8f5;
 `
 
 export const throttle = (func, limit) => {

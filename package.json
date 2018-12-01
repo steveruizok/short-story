@@ -1,6 +1,6 @@
 {
   "name": "short-story",
-  "version": "1.5.4",
+  "version": "1.5.5",
   "description": "Embed component previews in your React project.",
   "author": "steveruizok",
   "license": "MIT",
@@ -61,6 +61,9 @@
   "dependencies": {
     "@emotion/core": "^10.0.0",
     "@emotion/styled": "^10.0.0",
-    "emotion": "^10.0.0"
+    "emotion": "^10.0.0",
+    "prism-react-renderer": "^0.1.5",
+    "prismjs": "^1.15.0",
+    "react-element-to-jsx-string": "^14.0.2"
   }
 }
