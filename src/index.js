@@ -15,8 +15,8 @@
 // Convert to TypeScript to give better editor hints
 
 import React from 'react'
-import PropTypes from 'prop-types'
 import { jsx, css } from '@emotion/core'
+import PropTypes from 'prop-types'
 import styled from '@emotion/styled'
 
 import theme, { AnchorStyle, ContainerStyle } from './components/theme'
@@ -25,6 +25,8 @@ import Knob from './components/Knob'
 import reactElementToJSXString from 'react-element-to-jsx-string'
 import Highlight, { defaultProps } from 'prism-react-renderer'
 import duotoneLight from 'prism-react-renderer/themes/duotoneLight'
+
+import ComponentStory from './components/ComponentStory'
 
 class ShortStory extends React.Component {
   static propTypes = {
@@ -36,7 +38,7 @@ class ShortStory extends React.Component {
   static defaultProps = {
     name: undefined,
     knobs: {},
-    children: undefined,
+    children: () => <div>Needs a child function!</div>,
   }
 
   state = {
@@ -375,6 +377,9 @@ class ShortStory extends React.Component {
     const child = children(this.state.knobValues)
     const codeString = reactElementToJSXString(child)
 
+    // console.log(child)
+    // console.log(child.type.name && parsePropTypes(child))
+
     return (
       <div>
         <CSSCapsule key={`stsy_${name}_header`}>
@@ -514,3 +519,4 @@ export const throttle = (func, limit) => {
 const BaseInput = styled.input``
 
 export default ShortStory
+export { ComponentStory }

@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
 import ShortStory from 'short-story'
 
-const SimpleButton = ({ text, secondary }) => {
-  return <button className={secondary ? 'secondary' : null}>{text}</button>
-}
+import SimpleButton from './SimpleButton'
 
 class App extends Component {
   render() {
