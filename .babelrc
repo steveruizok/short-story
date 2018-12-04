@@ -3,7 +3,8 @@
     [
       "env",
       {
-        "modules": false
+        "modules": false,
+        "displayName": true
       }
     ],
     "stage-0",

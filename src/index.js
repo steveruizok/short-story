@@ -23,6 +23,7 @@ import theme, { AnchorStyle, ContainerStyle } from './components/theme'
 import Knob from './components/Knob'
 
 import reactElementToJSXString from 'react-element-to-jsx-string'
+
 import Highlight, { defaultProps } from 'prism-react-renderer'
 import duotoneLight from 'prism-react-renderer/themes/duotoneLight'
 
@@ -377,9 +378,6 @@ class ShortStory extends React.Component {
     const child = children(this.state.knobValues)
     const codeString = reactElementToJSXString(child)
 
-    // console.log(child)
-    // console.log(child.type.name && parsePropTypes(child))
-
     return (
       <div>
         <CSSCapsule key={`stsy_${name}_header`}>
@@ -500,6 +498,7 @@ const CodePanel = styled.div`
   font-weight: 400;
   font-size: 14px;
   padding: 0 2em;
+  overflow: scroll;
   background-color: #faf8f5;
 `
 
