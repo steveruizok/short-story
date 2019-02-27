@@ -1,10 +1,10 @@
 {
-  "name": "framer-controller",
-  "version": "1.0.0",
-  "description": "Control a Framer component through overrides.",
-  "author": "Steve Ruiz",
+  "name": "short-story",
+  "version": "1.5.9",
+  "description": "Beautiful component previews for design, docs and demos.",
+  "author": "steveruizok",
   "license": "MIT",
-  "repository": "steveruizok/framer-controller",
+  "repository": "steveruizok/short-story",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "jsnext:main": "dist/index.es.js",
@@ -22,9 +22,9 @@
     "deploy": "gh-pages -d example/build"
   },
   "peerDependencies": {
-    "framer": "^0.10",
-    "react": "^16.3.0",
-    "react-dom": "^16.3.0"
+    "prop-types": "^15.5.4",
+    "react": "^15.0.0 || ^16.0.0",
+    "react-dom": "^15.0.0 || ^16.0.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
@@ -59,6 +59,13 @@
     "dist"
   ],
   "dependencies": {
-    "framer": "^0.10.8"
+    "@emotion/core": "^10.0.0",
+    "@emotion/styled": "^10.0.0",
+    "emotion": "^10.0.0",
+    "parse-prop-types": "^0.3.0",
+    "prism-react-renderer": "^0.1.5",
+    "prismjs": "^1.15.0",
+    "prop-types": "^15.6.2",
+    "react-element-to-jsx-string": "^14.0.2"
   }
 }
