@@ -14,23 +14,24 @@
 // Combine textarea and text types to "string" and add textarea option
 // Convert to TypeScript to give better editor hints
 
-import React from 'react'
-import { jsx, css } from '@emotion/core'
-import PropTypes from 'prop-types'
-import styled from '@emotion/styled'
+import React from "react"
+import { jsx, css } from "@emotion/core"
+import PropTypes from "prop-types"
+import styled from "@emotion/styled"
 
-import theme, { AnchorStyle, ContainerStyle } from './components/theme'
-import Knob from './components/Knob'
+import theme, { AnchorStyle, ContainerStyle } from "./components/theme"
+import Knob from "./components/Knob"
 
-import reactElementToJSXString from 'react-element-to-jsx-string'
+import reactElementToJSXString from "react-element-to-jsx-string"
 
-import Highlight, { defaultProps } from 'prism-react-renderer'
-import duotoneLight from 'prism-react-renderer/themes/duotoneLight'
+import Highlight, { defaultProps } from "prism-react-renderer"
+import duotoneLight from "prism-react-renderer/themes/duotoneLight"
 
-import ComponentStory from './components/ComponentStory'
+import ComponentStory from "./components/ComponentStory"
 
 class ShortStory extends React.Component {
   static propTypes = {
+    showCode: PropTypes.bool,
     knobs: PropTypes.object,
     name: PropTypes.string,
     children: PropTypes.func.isRequired,
@@ -38,6 +39,7 @@ class ShortStory extends React.Component {
 
   static defaultProps = {
     name: undefined,
+    showCode: false,
     knobs: {},
     children: () => <div>Needs a child function!</div>,
   }
@@ -55,7 +57,7 @@ class ShortStory extends React.Component {
     const { knobs } = this.props
 
     this.updateWidth()
-    window.addEventListener('resize', throttle(this.updateWidth, 100))
+    window.addEventListener("resize", throttle(this.updateWidth, 100))
 
     const initialValues = {}
 
@@ -86,7 +88,7 @@ class ShortStory extends React.Component {
 
     switch (knob.type) {
       // BOOLEAN
-      case 'boolean':
+      case "boolean":
         return (
           <input
             key={key}
@@ -104,7 +106,7 @@ class ShortStory extends React.Component {
           />
         )
       // TEXT
-      case 'text':
+      case "text":
         return (
           <input
             key={key}
@@ -118,7 +120,7 @@ class ShortStory extends React.Component {
           />
         )
       // TEXTAREA
-      case 'textarea':
+      case "textarea":
         return (
           <textarea
             key={key}
@@ -127,26 +129,26 @@ class ShortStory extends React.Component {
           />
         )
       // NUMBER
-      case 'number':
+      case "number":
         return [
           <div
-            key={key + '_slider_values'}
+            key={key + "_slider_values"}
             style={{
-              display: 'flex',
-              marginTop: '1em',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              fontFamily: 'sans-serif',
-              fontSize: '.9em',
+              display: "flex",
+              marginTop: "1em",
+              alignItems: "center",
+              justifyContent: "space-between",
+              fontFamily: "sans-serif",
+              fontSize: ".9em",
             }}
           >
             <span
               style={{
-                marginRight: '16px',
-                letterSpacing: '.1em',
+                marginRight: "16px",
+                letterSpacing: ".1em",
                 font: theme.fonts.code,
               }}
-              key={key + '_slider_min'}
+              key={key + "_slider_min"}
             >
               {knob.min}
             </span>
@@ -159,25 +161,25 @@ class ShortStory extends React.Component {
               onChange={handleChange}
               defaultValue={currentValue}
               style={{
-                width: '100%',
+                width: "100%",
                 margin: 0,
                 padding: 0,
               }}
             />
             <span
               style={{
-                marginLeft: '16px',
-                letterSpacing: '.1em',
+                marginLeft: "16px",
+                letterSpacing: ".1em",
                 font: theme.fonts.code,
               }}
-              key={key + '_slider_max'}
+              key={key + "_slider_max"}
             >
               {knob.max}
             </span>
           </div>,
         ]
       // ENUMERATED VALUE
-      case 'enum':
+      case "enum":
         return (
           <div
             css={css`
@@ -186,7 +188,7 @@ class ShortStory extends React.Component {
               display: flex;
               align-items: center;
               justify-content: space-between;
-              height: '3em';
+              height: "3em";
             `}
           >
             {knob.labels[knob.options.indexOf(currentValue)]}
@@ -214,7 +216,7 @@ class ShortStory extends React.Component {
               `}
             >
               {knob.options.map((o, index) => (
-                <option key={key + '_option_' + index} value={o}>
+                <option key={key + "_option_" + index} value={o}>
                   {knob.labels[index]}
                 </option>
               ))}
@@ -222,11 +224,11 @@ class ShortStory extends React.Component {
           </div>
         )
       // SEGMENTED ENUMERATED VALUE
-      case 'segment':
+      case "segment":
         i++
         return (
           <div
-            key={key + i + '_segment'}
+            key={key + i + "_segment"}
             css={css`
               display: flex;
               justify-content: space-between;
@@ -235,7 +237,7 @@ class ShortStory extends React.Component {
             {knob.options.map((o, index) => {
               return (
                 <div
-                  key={key + i + '_' + index + '_segment_option'}
+                  key={key + i + "_" + index + "_segment_option"}
                   onClick={() =>
                     this.setState({
                       knobValues: {
@@ -248,28 +250,28 @@ class ShortStory extends React.Component {
                     ${ContainerStyle}
                     display: inline-block;
                     border-radius: ${index === 0
-                      ? '22px 0 0 22px'
+                      ? "22px 0 0 22px"
                       : index === knob.options.length - 1
-                      ? '0 22px 22px 0'
-                      : '0'};
+                      ? "0 22px 22px 0"
+                      : "0"};
                     background-color: ${currentValue === o
                       ? colors.select
                       : colors.field};
                     color: ${currentValue === o ? colors.field : colors.text};
                     ${index === 0
-                      ? 'padding-left: 24px'
+                      ? "padding-left: 24px"
                       : index === knob.options.length - 1
-                      ? 'padding-right: 24px'
-                      : ''};
+                      ? "padding-right: 24px"
+                      : ""};
                   `}
                 >
                   <input
-                    key={key + i + '_SegmentOption_' + index}
+                    key={key + i + "_SegmentOption_" + index}
                     type="radio"
                     value={o}
                     name={key}
                     checked={currentValue === o}
-                    id={key + i + '_SegmentOption_' + index}
+                    id={key + i + "_SegmentOption_" + index}
                     onChange={() => {}}
                   />
                   <label
@@ -278,8 +280,8 @@ class ShortStory extends React.Component {
                       height: 100%;
                       text-align: center;
                     `}
-                    key={key + i + '_SegmentOptionLabel_' + index}
-                    htmlFor={key + i + '_SegmentOption_' + index}
+                    key={key + i + "_SegmentOptionLabel_" + index}
+                    htmlFor={key + i + "_SegmentOption_" + index}
                   >
                     {knob.labels[index]}
                   </label>
@@ -289,7 +291,7 @@ class ShortStory extends React.Component {
           </div>
         )
       // COLOR
-      case 'color':
+      case "color":
         return [
           <BaseInput
             key={key}
@@ -301,15 +303,15 @@ class ShortStory extends React.Component {
               padding: 0,
               margin: 0,
               borderWidth: 0,
-              height: '32px',
-              width: '56px',
-              borderColor: 'none',
-              backgroundColor: 'none',
+              height: "32px",
+              width: "56px",
+              borderColor: "none",
+              backgroundColor: "none",
             }}
           />,
         ]
       // DATE
-      case 'date':
+      case "date":
         return (
           <BaseInput
             key={key}
@@ -319,15 +321,15 @@ class ShortStory extends React.Component {
             onChange={handleChange}
             defaultValue={currentValue}
             style={{
-              border: '1px solid #aaa',
-              fontFamily: 'sans-serif',
-              fontSize: '.9em',
-              padding: '8px',
+              border: "1px solid #aaa",
+              fontFamily: "sans-serif",
+              fontSize: ".9em",
+              padding: "8px",
             }}
           />
         )
       // TIME
-      case 'time':
+      case "time":
         return [
           <BaseInput
             key={key}
@@ -337,10 +339,10 @@ class ShortStory extends React.Component {
             onChange={handleChange}
             defaultValue={currentValue}
             style={{
-              border: '1px solid #aaa',
-              fontFamily: 'sans-serif',
-              fontSize: '.9em',
-              padding: '8px',
+              border: "1px solid #aaa",
+              fontFamily: "sans-serif",
+              fontSize: ".9em",
+              padding: "8px",
             }}
           />,
         ]
@@ -355,7 +357,7 @@ class ShortStory extends React.Component {
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', throttle(this.updateWidth, 100))
+    window.removeEventListener("resize", throttle(this.updateWidth, 100))
   }
 
   updateWidth = () => {
@@ -373,7 +375,7 @@ class ShortStory extends React.Component {
   }
 
   render() {
-    const { name, children, knobs } = this.props
+    const { name, children, knobs, showCode } = this.props
     const { knobValues, loaded } = this.state
     const child = children(this.state.knobValues)
     const codeString = reactElementToJSXString(child)
@@ -398,32 +400,34 @@ class ShortStory extends React.Component {
           </ComponentContainer>
           <CSSCapsule>
             <KnobsPanel>
-              <CodePanel>
-                <Highlight
-                  {...defaultProps}
-                  code={codeString}
-                  theme={duotoneLight}
-                  language="jsx"
-                >
-                  {({
-                    className,
-                    style,
-                    tokens,
-                    getLineProps,
-                    getTokenProps,
-                  }) => (
-                    <pre className={className} style={style}>
-                      {tokens.map((line, i) => (
-                        <div {...getLineProps({ line, key: i })}>
-                          {line.map((token, key) => (
-                            <span {...getTokenProps({ token, key })} />
-                          ))}
-                        </div>
-                      ))}
-                    </pre>
-                  )}
-                </Highlight>
-              </CodePanel>
+              {showCode && (
+                <CodePanel>
+                  <Highlight
+                    {...defaultProps}
+                    code={codeString}
+                    theme={duotoneLight}
+                    language="jsx"
+                  >
+                    {({
+                      className,
+                      style,
+                      tokens,
+                      getLineProps,
+                      getTokenProps,
+                    }) => (
+                      <pre className={className} style={style}>
+                        {tokens.map((line, i) => (
+                          <div {...getLineProps({ line, key: i })}>
+                            {line.map((token, key) => (
+                              <span {...getTokenProps({ token, key })} />
+                            ))}
+                          </div>
+                        ))}
+                      </pre>
+                    )}
+                  </Highlight>
+                </CodePanel>
+              )}
               {Object.keys(knobs).map(key => {
                 const knob = knobs[key]
                 const currentValue = knobValues[key]

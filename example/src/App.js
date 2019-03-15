@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
-import ShortStory from 'short-story'
+import React, { Component } from "react"
+import ShortStory from "short-story"
 
-import SimpleButton from './SimpleButton'
+import SimpleButton from "./SimpleButton"
 
 class App extends Component {
   render() {
@@ -10,8 +10,8 @@ class App extends Component {
         <ShortStory
           name="Boolean"
           knobs={{
-            text: { type: 'text', default: 'Click here!' },
-            secondary: { type: 'boolean', label: 'Secondary', default: false },
+            text: { type: "text", default: "Click here!" },
+            secondary: { type: "boolean", label: "Secondary", default: false },
           }}
         >
           {props => {
@@ -21,9 +21,9 @@ class App extends Component {
         <ShortStory
           name="Text"
           knobs={{
-            name: { label: 'Name', type: 'text', default: 'ShortStory' },
+            name: { label: "Name", type: "text", default: "ShortStory" },
             years: {
-              type: 'number',
+              type: "number",
               min: 0,
               max: 132,
               step: 0.25,
@@ -33,7 +33,7 @@ class App extends Component {
         >
           {({ name, years }) => (
             <p>
-              Hello world, my name is {name}! I'm{' '}
+              Hello world, my name is {name}! I'm{" "}
               {parseFloat(years, 10).toFixed(2)} years old.
             </p>
           )}
@@ -42,10 +42,10 @@ class App extends Component {
           name="Textarea"
           knobs={{
             message: {
-              name: 'myTextarea',
-              type: 'textarea',
-              label: 'Diary Entry',
-              default: 'Dear diary...',
+              name: "myTextarea",
+              type: "textarea",
+              label: "Diary Entry",
+              default: "Dear diary...",
             },
           }}
         >
@@ -53,8 +53,8 @@ class App extends Component {
             return (
               <p
                 style={{
-                  width: '200px',
-                  padding: '16px 32px',
+                  width: "200px",
+                  padding: "16px 32px",
                 }}
               >
                 {state.message}
@@ -66,8 +66,8 @@ class App extends Component {
           name="Number"
           knobs={{
             stars: {
-              label: 'Stars',
-              type: 'number',
+              label: "Stars",
+              type: "number",
               min: 0,
               max: 5,
               default: 4,
@@ -75,24 +75,24 @@ class App extends Component {
           }}
         >
           {state => {
-            let stars = ['◽️️️', '◽️️️', '◽️️️', '◽️️️', '◽️️️']
+            let stars = ["◽️️️", "◽️️️", "◽️️️", "◽️️️", "◽️️️"]
 
             for (let i = 0; i < state.stars; i++) {
-              stars[i] = '⭐️'
+              stars[i] = "⭐️"
             }
 
-            return <div>Rating: {stars.join('')}</div>
+            return <div>Rating: {stars.join("")}</div>
           }}
         </ShortStory>
         <ShortStory
           name="Enum"
           knobs={{
             animal: {
-              label: 'Animal',
-              type: 'enum',
-              options: ['dog', 'cat', 'rabbit'],
-              labels: ['Dog', 'Cat', 'Rabbit'],
-              default: 'dog',
+              label: "Animal",
+              type: "enum",
+              options: ["dog", "cat", "rabbit"],
+              labels: ["Dog", "Cat", "Rabbit"],
+              default: "dog",
             },
           }}
         >
@@ -100,9 +100,9 @@ class App extends Component {
             return (
               <img
                 style={{
-                  width: '400px',
-                  height: '300px',
-                  backgroundColor: '#ccc',
+                  width: "400px",
+                  height: "300px",
+                  backgroundColor: "#ccc",
                 }}
                 alt={`A ${state.animal}.`}
                 src={`https://source.unsplash.com/800x600/?${state.animal}`}
@@ -114,11 +114,11 @@ class App extends Component {
           name="Segment"
           knobs={{
             alignment: {
-              type: 'segment',
-              label: 'Alignment',
-              options: ['left', 'center', 'right'],
-              labels: ['Left', 'Center', 'Right'],
-              default: 'left',
+              type: "segment",
+              label: "Alignment",
+              options: ["left", "center", "right"],
+              labels: ["Left", "Center", "Right"],
+              default: "left",
             },
           }}
         >
@@ -126,7 +126,7 @@ class App extends Component {
             return (
               <p
                 style={{
-                  width: '400px',
+                  width: "400px",
                   textAlign: state.alignment,
                 }}
               >
@@ -139,9 +139,9 @@ class App extends Component {
           name="Color"
           knobs={{
             color: {
-              type: 'color',
-              label: 'Color',
-              default: '#e0a681',
+              type: "color",
+              label: "Color",
+              default: "#e0a681",
             },
           }}
         >
@@ -161,19 +161,19 @@ class App extends Component {
           name="Hidden / Revealed"
           knobs={{
             darkMode: {
-              type: 'boolean',
-              label: 'Dark Mode',
+              type: "boolean",
+              label: "Dark Mode",
               default: false,
             },
             lightModeText: {
-              type: 'text',
-              label: 'Light mode text',
+              type: "text",
+              label: "Light mode text",
               default: "It's bright in here!",
               hidden: s => s.darkMode,
             },
             darkModeText: {
-              type: 'text',
-              label: 'Dark mode text',
+              type: "text",
+              label: "Dark mode text",
               default: "It's dark in here!",
               hidden: s => !s.darkMode,
             },
@@ -183,9 +183,9 @@ class App extends Component {
             return (
               <h4
                 style={{
-                  padding: '16px 32px',
-                  color: state.darkMode ? '#FFF' : '#333',
-                  backgroundColor: state.darkMode ? '#333' : '#FFF',
+                  padding: "16px 32px",
+                  color: state.darkMode ? "#FFF" : "#333",
+                  backgroundColor: state.darkMode ? "#333" : "#FFF",
                 }}
               >
                 {state.darkMode ? state.darkModeText : state.lightModeText}
@@ -197,22 +197,22 @@ class App extends Component {
           name="Date"
           knobs={{
             date: {
-              type: 'date',
-              label: 'Date',
-              min: '2018-01-01',
-              max: '2018-12-31',
-              default: '2018-01-09',
+              type: "date",
+              label: "Date",
+              min: "2018-01-01",
+              max: "2018-12-31",
+              default: "2018-01-09",
             },
           }}
         >
           {state => {
             return (
               <p>
-                {new Date(state.date).toLocaleDateString('en-gb', {
-                  month: 'long',
-                  weekday: 'long',
-                  day: 'numeric',
-                  year: 'numeric',
+                {new Date(state.date).toLocaleDateString("en-gb", {
+                  month: "long",
+                  weekday: "long",
+                  day: "numeric",
+                  year: "numeric",
                 })}
               </p>
             )
@@ -222,11 +222,11 @@ class App extends Component {
           name="Time"
           knobs={{
             time: {
-              type: 'time',
-              label: 'Time',
-              min: '09:00',
-              max: '17:00',
-              default: '04:20',
+              type: "time",
+              label: "Time",
+              min: "09:00",
+              max: "17:00",
+              default: "04:20",
             },
           }}
         >

@@ -1,6 +1,6 @@
 {
   "name": "short-story",
-  "version": "1.5.9",
+  "version": "1.6.0",
   "description": "Beautiful component previews for design, docs and demos.",
   "author": "steveruizok",
   "license": "MIT",
@@ -19,7 +19,7 @@
     "start": "rollup -c -w",
     "prepare": "yarn run build",
     "predeploy": "cd example && yarn install && yarn run build",
-    "deploy": "gh-pages -d example/build"
+    "deploy": "npm publish"
   },
   "peerDependencies": {
     "prop-types": "^15.5.4",
